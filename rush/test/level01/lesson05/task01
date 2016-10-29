@@ -8,8 +8,8 @@ public class Solution
 {
     public static void main(String[] args)
     {
-        String s = 5;
-        String t = 6;
-        int x = "7";
+        String s = "5";
+        String t = "6";
+        int x = 7;
     }
 }
