@@ -1,0 +1,63 @@
+package com.javarush.test.level08.lesson08.task03;
+
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+
+/* Одинаковые имя и фамилия
+Создать словарь (Map<String, String>) занести в него десять записей по принципу «Фамилия» - «Имя».
+Проверить сколько людей имеют совпадающие с заданным имя или фамилию.
+*/
+
+public class Solution
+{
+    public static HashMap<String, String> createMap()
+    {
+        //напишите тут ваш код
+        HashMap<String, String> list = new HashMap<String, String>();
+        list.put("арбуз", "ягода");
+        list.put("банан", "трава");
+        list.put("вишня", "ягода");
+        list.put("груша", "фрукт");
+        list.put("дыня", "овощ");
+        list.put("ежевика", "куст");
+        list.put("жень-шень", "корень");
+        list.put("земляника", "ягода");
+        list.put("ирис", "цветок");
+        list.put("картофель", "клубень");
+
+        return list;
+
+    }
+
+    public static int getCountTheSameFirstName(HashMap<String, String> map, String name)
+    {
+        //напишите тут ваш код
+        int firstNameCount = 0;
+        for (Map.Entry<String, String> p: map.entrySet())
+            if (p.getValue().equals(name)){
+            firstNameCount++;
+        }
+        return firstNameCount;
+
+    }
+
+    public static int getCountTheSameLastName(HashMap<String, String> map, String lastName)
+    {
+        //напишите тут ваш код
+        int lastNameCount = 0;
+        for (Map.Entry<String, String> p: map.entrySet())
+            if (p.getKey().equals(lastName)){
+                lastNameCount++;
+            }
+        return lastNameCount;
+
+    }
+
+        public static void main (String[] args)
+        {
+
+            System.out.println(Solution.getCountTheSameLastName(Solution.createMap(), "ирис"));
+            System.out.println(Solution.getCountTheSameFirstName(Solution.createMap(), "цветок"));
+        }
+}
