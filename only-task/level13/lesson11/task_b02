@@ -25,3 +25,17 @@ public class Solution
         RepkaStory.tell(plot);
     }
 }
+
+package com.javarush.test.level13.lesson11.bonus02;
+
+public interface RepkaItem
+{
+    public String getNamePadezh();
+}
+
+package com.javarush.test.level13.lesson11.bonus03;
+
+public interface Attackable
+{
+    BodyPart attack();
+}
