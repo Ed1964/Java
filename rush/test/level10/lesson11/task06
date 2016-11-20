@@ -1,0 +1,86 @@
+package com.javarush.test.level10.lesson11.home06;
+
+/* Конструкторы класса Human
+Напиши класс Human с 6 полями. Придумай и реализуй 10 различных конструкторов для него. Каждый конструктор должен иметь смысл.
+*/
+
+public class Solution
+{
+    public static void main(String[] args)
+    {
+
+    }
+
+    public static class Human
+    {
+        //напишите тут ваши переменные и конструкторы
+        String name;
+        String lastName;
+        String fatherName;
+        int age;
+        int height;
+        boolean sex;
+
+
+
+        Human ()
+        {
+        }
+
+        Human (Human x)
+        {
+        }
+
+        Human (boolean sex)
+        {
+            this.sex=sex;
+        }
+
+        Human (boolean sex, int height)
+        {
+            this.sex=sex;
+            this.height = height;
+        }
+
+        Human (String name, String lastName, boolean sex){
+            this.name = name;
+            this.lastName = lastName;
+            this.sex=sex;
+        }
+
+        Human (String name, String lastName, String fatherName){
+            this.name = name;
+            this.lastName = lastName;
+            this.fatherName = fatherName;
+        }
+
+        Human (String name, String lastName, String fatherName, int age){
+            this.name = name;
+            this.lastName = lastName;
+            this.fatherName = fatherName;
+            this.age=age;
+        }
+        Human (String name, String lastName, String fatherName, int age, boolean sex, int height){
+            this.name = name;
+            this.lastName = lastName;
+            this.fatherName = fatherName;
+            this.age=age;
+            this.sex = sex;
+            this.height = height;
+        }
+        Human (String name, String lastName, String fatherName, int age, boolean sex){
+            this.name = name;
+            this.lastName = lastName;
+            this.fatherName = fatherName;
+            this.age=age;
+            this.sex = sex;
+        }
+
+        Human (String name, String lastName, boolean sex, int age){
+            this.name = name;
+            this.lastName = lastName;
+            this.sex = sex;
+            this.age = age;
+        }
+    }
+}
