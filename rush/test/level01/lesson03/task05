@@ -1,0 +1,24 @@
+package com.javarush.test.level15.lesson12.home05;
+
+/**
+ * Created by nb on 23.11.2016.
+ */
+public class SubSolution extends Solution
+{
+    public SubSolution(String a) {super (a);}
+    public SubSolution(String a, String b) {super(a, b);}
+    public SubSolution(String a, String b, String c) {super(a, b, c);}
+
+    protected SubSolution(int a) {super(a);}
+    protected SubSolution(int a, int b) {super(a, b);}
+    protected SubSolution(int a, int b, int c) {super(a, b, c);}
+
+    private SubSolution(Boolean a){super(a);}
+    private SubSolution(Boolean a, Boolean b){super(a,b);}
+    private SubSolution(Boolean a, Boolean b, Boolean c){super(a,b,c);}
+
+    SubSolution(Object a) {super(a);}
+    SubSolution(Object a, Object b) {super(a, b);}
+    SubSolution(Object a, Object b, Object c) {super(a, b, c);}
+
+}
