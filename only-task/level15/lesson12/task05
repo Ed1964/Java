@@ -7,6 +7,15 @@ package com.javarush.test.level15.lesson12.home05;
 4. Исправьте модификаторы доступа конструкторов в SubSolution так, чтобы они соответствовали конструкторам класса Solution.
 */
 
+
+
 public class Solution {
    
+}
+
+
+ */
+public class SubSolution extends Solution
+{
+    
 }
