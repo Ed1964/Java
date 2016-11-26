@@ -63,3 +63,17 @@ public class Solution {
         Date stopPlaying();
     }
 }
+
+
+------------------------------------------------------------------------------------------------
+Красивое решение 
+
+public void run()
+        {
+            Date a1 = startPlaying();
+            sleepNSeconds(1);
+            Date a2 = stopPlaying();
+            long gameTime = a2.getTime() - a1.getTime();
+            System.out.println("Playing " + gameTime + " ms");
+
+        }
