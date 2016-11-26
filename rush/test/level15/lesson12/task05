@@ -1,0 +1,52 @@
+package com.javarush.test.level15.lesson12.home05;
+
+/* Перегрузка конструкторов
+1. В классе Solution создайте по 3 конструктора для каждого модификатора доступа.
+2. В отдельном файле унаследуйте класс SubSolution от класса Solution.
+3. Внутри класса SubSolution создайте конструкторы командой Alt+Insert -> Constructors.
+4. Исправьте модификаторы доступа конструкторов в SubSolution так, чтобы они соответствовали конструкторам класса Solution.
+*/
+
+
+
+public class Solution {
+    public Solution(String a){}
+    public Solution (String a, String b){}
+    public Solution (String a, String b, String c){}
+
+    protected Solution(int a){}
+    protected Solution(int a, int b){}
+    protected Solution (int a, int b, int c){}
+
+    private Solution(Boolean a){}
+    private Solution(Boolean a, Boolean b){}
+    private Solution(Boolean a, Boolean b, Boolean c){}
+
+    Solution (Object a){}
+    Solution (Object a, Object b){}
+    Solution (Object a, Object b, Object c){}
+
+
+}
+
+
+ */
+public class SubSolution extends Solution
+{
+    public SubSolution(String a) {super (a);}
+    public SubSolution(String a, String b) {super(a, b);}
+    public SubSolution(String a, String b, String c) {super(a, b, c);}
+
+    protected SubSolution(int a) {super(a);}
+    protected SubSolution(int a, int b) {super(a, b);}
+    protected SubSolution(int a, int b, int c) {super(a, b, c);}
+
+    private SubSolution(Boolean a){super(a);}
+    private SubSolution(Boolean a, Boolean b){super(a,b);}
+    private SubSolution(Boolean a, Boolean b, Boolean c){super(a,b,c);}
+
+    SubSolution(Object a) {super(a);}
+    SubSolution(Object a, Object b) {super(a, b);}
+    SubSolution(Object a, Object b, Object c) {super(a, b, c);}
+
+}
