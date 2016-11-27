@@ -26,7 +26,7 @@ public class Solution {
         int countFinished = 0;
         for (Horse h: horses){
             if (h.isFinished()){
-                countFinished = countFinished +1;
+                countFinished++;
             }
             else {
                 System.out.println("Waiting for " + h.getName());
