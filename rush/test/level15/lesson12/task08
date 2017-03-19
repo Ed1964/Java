@@ -16,12 +16,11 @@ public class Solution {
         private int f1 = 7;
 
         public A(int f1) {
-            initialize();
             this.f1 = f1;
             initialize();
         }
 
-        protected void initialize() {
+        private void initialize() {
             System.out.println(f1);
         }
     }
