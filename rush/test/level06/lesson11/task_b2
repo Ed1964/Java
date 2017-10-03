@@ -1,0 +1,32 @@
+package Golovach.Lection1;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.lang.reflect.Array;
+import java.util.Arrays;
+
+/**
+ * Created by nb on 03.10.2017.
+ */
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        //напишите тут ваш код
+        int[] five = new int[5];
+
+        for(int x = 0; x < 5; x++){
+            int a = Integer.parseInt(reader.readLine());
+            five[x] = a;
+        }
+
+        Arrays.sort(five);
+        Arrays.toString(five);
+
+        for(int a : five) {
+            System.out.println(a);
+        }
+
+
+    }
+}
