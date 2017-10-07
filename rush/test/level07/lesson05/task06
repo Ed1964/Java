@@ -26,6 +26,7 @@ import java.util.ArrayList;
 public class Solution {
     public static void main(String[] args) throws Exception {
         //напишите тут ваш код
+
         int max = 0;
         int min = 0;
 
@@ -38,14 +39,13 @@ public class Solution {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
         ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 5; i++) {
             list.add(reader.readLine());
         }
 
         min = list.get(0).length();
-        a = list.get(0);
         max = list.get(0).length();
-        b = list.get(0);
+
 
         for (int i = 1; i < list.size(); i++) {
 
@@ -53,17 +53,15 @@ public class Solution {
             if (list.get(i).length() < min) {
                 min = list.get(i).length();
                 nomerKor = i;
-                a = list.get(i);
             }
 
             if (list.get(i).length() > max) {
                 max = list.get(i).length();
                 nomerDlin = i;
-                b = list.get(i);
             }
         }
             if (nomerKor < nomerDlin) {
-                System.out.println(a);
-            } else System.out.println(b);
+                System.out.println(list.get(nomerKor));
+            } else System.out.println(list.get(nomerDlin));
     }
 }
