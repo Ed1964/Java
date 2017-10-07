@@ -10,3 +10,23 @@
 3. Если список упорядочен по возрастанию длины строки, то ничего выводить не нужно.
 4. Если список не упорядочен по возрастанию длины строки, то нужно вывести на экран номер первого элемента, нарушающего такую упорядоченность.
 
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        //напишите тут ваш код
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        ArrayList<String> list = new ArrayList<String>();
+        for(int i =0; i<5; i++)
+        {
+            list.add(reader.readLine());
+        }
+
+        for(int i =0; i<list.size()-1; i++)
+        {
+        if(list.get(i).length()<list.get(i+1).length()){
+
+        }
+        else { System.out.print(i+1);
+        }
+        }
+    }
+}
