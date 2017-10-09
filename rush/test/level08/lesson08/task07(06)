@@ -11,3 +11,52 @@
 5. Метод removeItemFromMap() должен удалять из словаря всех людей, у которых зарплата ниже 500.
 
 
+public class Solution {
+
+    public static HashMap<String, Integer> createMap() {
+        //напишите тут ваш код
+        HashMap<String, Integer> vocabluary = new HashMap<String, Integer>();
+
+            vocabluary.put("Сидоров", 100);
+            vocabluary.put("Федоров", 150);
+            vocabluary.put("Николаев", 200);
+            vocabluary.put("Егоров", 250);
+            vocabluary.put("Светка", 300);
+            vocabluary.put("Костин", 350);
+            vocabluary.put("Киров", 400);
+            vocabluary.put("Стоянова", 450);
+            vocabluary.put("Петров", 500);
+            vocabluary.put("Оля", 550);
+
+        return vocabluary;
+
+    }
+
+    public static void removeItemFromMap(HashMap<String, Integer> map) {
+        //напишите тут ваш код
+        HashMap<String, Integer> copy = new HashMap<String, Integer>(map);
+        for (Map.Entry<String, Integer> pair : copy.entrySet()){
+            if(pair.getValue()< 500){
+                map.remove(pair.getKey());
+            }
+        }
+
+
+    }
+
+    public static void main(String[] args) {
+
+    }
+}
+
+ВТОРОЙ ВАРИАНТ
+
+
+Iterator<HashMap.Entry<String, Integer>> iterator = map.entrySet().iterator();
+        while (iterator.hasNext()) {
+            HashMap.Entry<String, Integer> pair = iterator.next();
+            if (pair.getValue() < 500) {
+                iterator.remove();
+            }
+
+        }
