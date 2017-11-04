@@ -1,94 +1,6 @@
 package com.javarush.test.level15.lesson02.task04;
-
-/**
- * Created by nb on 03.05.2016.
- */
-
-        import java.util.ArrayList;
-        import java.util.List;
-
-/* ООП - исправь ошибки в наследовании
-Исправь метод containsBones и всю связанную с ним логику так, чтобы:
-1. Поведение программы осталось прежним, т.е. она должна выдавать то же самое, что и выдает сейчас
-2. Метод containsBones должен возвращать тип Object и значение "Yes" вместо true, "No" вместо false
-*/
-
-public class Sol {
-
-    public static interface Alive {
-        Object containsBones();
-    }
-
-    public static class BodyPart implements Alive {
-        private String name;
-
-        public BodyPart(String name) {
-            this.name = name;
-        }
-
-        public Object containsBones() {
-            return "Yes";
-        }
-
-        public String toString() {
-            if (containsBones().equals("Yes")) return name + " содержит кости";
-            else return name + " не содержит кости";
-        }
-    }
-
-    public static class Finger extends BodyPart {
-        private boolean isFoot;
-        public Finger(String name, boolean isFoot) {
-            super(name);
-            this.isFoot = isFoot;
-        }
-
-        public Object containsBones() {
-            if  (super.containsBones().equals("Yes") && isFoot){
-                return "Yes";
-            }
-            else return "No";
-
-
-        }
-    }
-    public static void main(String[] args)
-    {
-        printlnFingers();
-        printlnBodyParts();
-        printlnAlives();
-    }
-
-    private static void printlnAlives() {
-        System.out.println(new BodyPart("Рука").containsBones());
-    }
-
-    private static void printlnFingers() {
-
-        List<Finger> fingers = new ArrayList<Finger>(5);
-        fingers.add(new Finger("Большой", true));
-        fingers.add(new Finger("Указательный", true));
-        fingers.add(new Finger("Средний", true));
-        fingers.add(new Finger("Безымянный", true));
-        fingers.add(new Finger("Мизинец", false));
-        System.out.println(fingers.toString());
-    }
-
-
-    private static void printlnBodyParts() {
-        List<BodyPart> bodyParts = new ArrayList<BodyPart>(5);
-        bodyParts.add(new BodyPart("Рука"));
-        bodyParts.add(new BodyPart("Нога"));
-        bodyParts.add(new BodyPart("Голова"));
-        bodyParts.add(new BodyPart("Тело"));
-        System.out.println(bodyParts.toString());
-    }
-
-
-}
-
-package com.javarush.test.level15.lesson02.task04;
-
+import java.util.List;
+import java.util.LinkedList;
 /* ООП - книги
 1. Создайте public static класс MarkTwainBook, который наследуется от Book. Имя автора [Mark Twain]. Параметр конструктора - имя книги.
 2. В классе MarkTwainBook реализуйте все абстрактные методы.
@@ -98,9 +10,6 @@ package com.javarush.test.level15.lesson02.task04;
 5.1. agathaChristieOutput для книг Агаты Кристи;
 5.2. markTwainOutput для книг Марка Твена.
 */
-
-import java.util.LinkedList;
-import java.util.List;
 
 public class Solution {
     public static void main(String[] args) {
@@ -127,15 +36,9 @@ public class Solution {
 
             String output = "output";
             //Add your code here
+            if (this instanceof MarkTwainBook) {output = markTwainOutput;}
+            else output = agathaChristieOutput;
 
-            if (this instanceof MarkTwainBook)
-            {
-                output = markTwainOutput;
-            }
-            if (this instanceof AgathaChristieBook)
-            {
-                output = agathaChristieOutput;
-            }
 
             return output;
         }
@@ -145,43 +48,47 @@ public class Solution {
         }
     }
 
-    public static class MarkTwainBook extends Book{
+    public static class MarkTwainBook extends Book {
+        public String title;
 
-        private String name;
-
-        public MarkTwainBook(String name) {
+        public MarkTwainBook(String title)
+        {
             super("Mark Twain");
-            this.name = name;
+            this.title = title;
         }
-        public MarkTwainBook getBook(){
+
+        @Override
+        public MarkTwainBook getBook()
+        {
             return this;
         }
 
-        public String getName(){
-            return name;
-        }
-
-    }
-    public static class AgathaChristieBook extends Book
-    {
-        private String name;
-
-        public AgathaChristieBook(String name)
+        @Override
+        public String getName()
         {
-            super("Agatha Christie");
-            this.name = name;
+            return this.title;
         }
+    }
 
+    public static class AgathaChristieBook extends  Book {
+        public String title;
+        public AgathaChristieBook(String title) {
+            super("Agatha Christie");
+            this.title = title;
+        }
+        @Override
         public AgathaChristieBook getBook()
         {
             return this;
         }
 
+        @Override
         public String getName()
         {
-            return name;
+            return this.title;
         }
     }
+
 }
 
 
