@@ -1,0 +1,45 @@
+СЧИТАЮ ЭТО НЕ ВЕРНЫМ!!!!!!!!!!
+
+public static void main(String[] args) {
+        //add your code here
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        try {
+            String a = reader.readLine();
+
+            String b = a.substring(a.indexOf('?')+1);
+
+
+            String [] arr = b.split("&");
+
+            for (String x : arr){
+                String[] arr2 = x.split("=");
+                System.out.print(arr2[0] + " ");
+            }
+
+            System.out.println();
+           for (String x : arr) {
+               if (x.contains("obj")) {
+                   String[] arr3 = arr[0].split("=");
+
+                       try{
+                           alert(Double.parseDouble(arr3[1]));
+                       }
+                       catch (Exception e){
+                           alert(arr3[1]);
+                       }
+
+
+                   }
+               }
+            } catch (IOException e) {
+            e.printStackTrace();
+            }
+    }
+
+    public static void alert(double value) {
+        System.out.println("double " + value);
+    }
+
+    public static void alert(String value) {
+        System.out.println("String " + value);
+    }
