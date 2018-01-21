@@ -10,7 +10,7 @@ public class Solution {
     public static class OurPresident {
         static {
             synchronized (Solution.class){
-                president = new OurPresident();
+                 if (president == null) president = new OurPresident();
             }
         }
 
