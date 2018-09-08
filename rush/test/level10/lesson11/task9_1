@@ -1,0 +1,38 @@
+package JavaRush2018;
+
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.*;
+
+/*
+Задача по алгоритмам
+*/
+
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        ArrayList<String> words = new ArrayList<String>();
+        for (int i = 0; i < 3; i++) {
+            words.add(reader.readLine());
+        }
+
+        Map<String, Integer> map = countWords(words);
+
+        for (Map.Entry<String, Integer> pair : map.entrySet()) {
+            System.out.println(pair.getKey() + " " + pair.getValue());
+        }
+    }
+
+    public static Map<String, Integer> countWords(ArrayList<String> list) {
+        HashMap<String, Integer> result = new HashMap<String, Integer>();
+
+        //напишите тут ваш код
+
+        for (String s: list)
+            result.put(s, result.getOrDefault(s, 0)+1); // добавляем S и в количестве указываем getOrDefault - типа есть такой или нет.
+            По умолчанию значение 0, если встречается, то плюсуется.
+
+        return result;
+    }
+}
