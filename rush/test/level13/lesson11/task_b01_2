@@ -1,0 +1,40 @@
+public class Solution {
+
+    public static void main(String[] args) throws IOException {
+        // напишите тут ваш код
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        String fileName = br.readLine();
+        BufferedReader bufferedReader = new BufferedReader(new FileReader(fileName));
+        ArrayList<Integer> list = new ArrayList<>();
+        ArrayList<Integer> listSort = new ArrayList<>();
+
+        while (true){
+            String line = bufferedReader.readLine();
+            if(line.isEmpty()){
+                break;
+            }
+            else {
+                int k = Integer.parseInt(line);
+                list.add(k);
+            }
+        }
+
+        for(Integer a : list){
+            if (a%2==0){
+                listSort.add(a);
+            }
+        }
+        Collections.sort(listSort);
+        for(int b : listSort){
+            System.out.println(b);
+        }
+
+
+
+
+        bufferedReader.close();
+        br.close();
+
+
+    }
+}
