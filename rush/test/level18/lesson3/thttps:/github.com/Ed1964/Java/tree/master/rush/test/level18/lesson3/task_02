@@ -1,0 +1,28 @@
+package com.javarush.task.task18.task1801;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+
+/*
+Максимальный байт
+*/
+
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String name = reader.readLine();
+        FileInputStream  is = new FileInputStream(name);
+        int data = is.read();
+        while (is.available()>0){
+            int data2 = is.read();
+            System.out.println(data2);
+            if(data2 < data){
+                data = data2;
+            }
+        }
+        System.out.println();
+        System.out.println(data);
+        is.close();
+    }
+}
