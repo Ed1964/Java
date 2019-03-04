@@ -16,17 +16,18 @@ public class Solution {
         String name = reader.readLine();
         FileInputStream  is = new FileInputStream(name);
 
+        TreeSet<Integer> tset  = new TreeSet<>();
         ArrayList<Integer> ar  = new ArrayList<>();
 
 
         while(is.available()>0){
             int data = is.read();
-            ar.add(data);
+            tset.add(data);
         }
 
-        Collections.sort(ar);
-        HashSet<Integer> set = new HashSet<>(ar);
-        System.out.println(set);
+
+
+        System.out.println(tset);
 
         is.close();
     }
