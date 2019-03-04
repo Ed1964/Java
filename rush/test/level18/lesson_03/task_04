@@ -1,0 +1,37 @@
+package com.javarush.task.task18.task1801;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+
+/*
+Максимальный байт
+*/
+
+public class Solution {
+    public static void main(String[] args) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String name = reader.readLine();
+        FileInputStream  is = new FileInputStream(name);
+
+        long[] array = new long[256];
+        while (is.available()>0) array[is.read()]++;
+
+        long min = 256;
+
+        for (int i = 0; i <array.length  ; i++) {
+            if (array[i]!=0 && array[i]<min) {
+                min = array[i];
+            }
+        }
+
+        for (int i = 0; i <array.length ; i++) {
+            if (array[i]==min) {
+                System.out.print(i + " ");
+            }
+        }
+
+        is.close();
+    }
+}
