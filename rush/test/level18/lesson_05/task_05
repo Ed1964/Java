@@ -1,0 +1,25 @@
+package com.javarush.task.task18.task1807;
+
+/*
+Подсчет запятых
+*/
+
+import java.io.*;
+import java.util.Arrays;
+
+public class Solution {
+    public static void main(String[] args) throws DownloadException, IOException {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        FileInputStream inputStream = new FileInputStream(reader.readLine());
+
+        if(inputStream.available()<1000){
+            inputStream.close();
+            reader.close();
+            throw new DownloadException();
+        }
+    }
+
+    public static class DownloadException extends Exception {
+
+    }
+}
