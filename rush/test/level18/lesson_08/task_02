@@ -1,0 +1,44 @@
+package com.javarush.task.task18.task1804;
+
+import java.io.*;
+
+public class QuestionFileOutputStream implements AmigoOutputStream {
+    public AmigoOutputStream amg;
+
+    public QuestionFileOutputStream(AmigoOutputStream amg) {
+        this.amg = amg;
+    }
+
+
+    @Override
+    public void flush() throws IOException {
+
+    }
+
+    @Override
+    public void write(int b) throws IOException {
+
+    }
+
+    @Override
+    public void write(byte[] b) throws IOException {
+
+    }
+
+    @Override
+    public void write(byte[] b, int off, int len) throws IOException {
+
+    }
+
+    @Override
+    public void close() throws IOException {
+        System.out.println("Вы действительно хотите закрыть поток? Д/Н");
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+        String a = reader.readLine();
+        if ("Д".equals(a)) {
+            amg.close();
+            reader.close();
+        }
+        
+    }
+}
