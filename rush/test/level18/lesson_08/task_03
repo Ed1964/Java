@@ -1,0 +1,52 @@
+package com.javarush.task.task18.task1813;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+/* 
+AmigoOutputStream
+*/
+
+public class AmigoOutputStream extends FileOutputStream {
+    FileOutputStream flo;
+
+    public AmigoOutputStream(FileOutputStream flo) throws FileNotFoundException {
+        super(fileName);
+        this.flo = flo;
+    }
+
+    @Override
+    public void write(int b) throws IOException {
+        flo.write(b);
+    }
+
+    @Override
+    public void write(byte[] b) throws IOException {
+        flo.write(b);
+    }
+
+    @Override
+    public void write(byte[] b, int off, int len) throws IOException {
+        flo.write(b, off, len);
+    }
+
+    @Override
+    public void close() throws IOException {
+        flo.flush();
+        flo.write("JavaRush © All rights reserved.".getBytes());
+        flo.close();
+    }
+
+    @Override
+    public void flush() throws IOException {
+        flo.flush();
+    }
+
+    public static String fileName = "C:/tmp/result.txt";
+
+    public static void main(String[] args) throws FileNotFoundException {
+        new AmigoOutputStream(new FileOutputStream(fileName));
+    }
+
+}
