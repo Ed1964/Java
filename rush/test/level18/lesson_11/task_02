@@ -1,0 +1,28 @@
+package com.javarush.task.task18.task1817;
+
+/*
+Английские буквы
+*/
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Locale;
+
+public class Solution {
+
+    public static void main(String[] args) throws IOException{
+
+        FileInputStream fileInputStream = new FileInputStream(args[0]);
+        int i, count = 0, countProb = 0;
+        while ((i = fileInputStream.read())!=-1){
+            count++;
+            if(i == 32){
+                countProb++;
+            }
+        }
+        System.out.printf( Locale.ENGLISH,"%.2f", (float) countProb/count *100);
+        fileInputStream.close();
+    }
+}
