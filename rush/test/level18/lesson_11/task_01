@@ -1,0 +1,28 @@
+package com.javarush.task.task18.task1816;
+
+/*
+Английские буквы
+*/
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+
+public class Solution {
+
+    public static void main(String[] args) throws IOException{
+
+        FileInputStream fileInputStream = new FileInputStream(args[0]);
+        int i, count = 0;
+        while ((i = fileInputStream.read())!=-1){
+            if (65<=i && i<=90)
+            count++;
+            if(97<=i && i<=122){
+                count++;
+            }
+        }
+        System.out.println(count);
+        fileInputStream.close();
+    }
+}
