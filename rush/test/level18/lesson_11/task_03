@@ -1,0 +1,43 @@
+package com.javarush.task.task18.task1817;
+
+/*
+Английские буквы
+*/
+
+import java.io.*;
+import java.util.Locale;
+
+public class Solution {
+
+    public static void main(String[] args) throws IOException{
+
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+
+        String name1 = reader.readLine();
+        String name2 = reader.readLine();
+        String name3 = reader.readLine();
+
+        BufferedOutputStream bufferedOutputStream = new BufferedOutputStream(new FileOutputStream(name1));
+        BufferedInputStream bufferedInputStream = new BufferedInputStream(new FileInputStream(name2) );
+
+
+
+
+        while (bufferedInputStream.available()>0){
+            int i = bufferedInputStream.read();
+            bufferedOutputStream.write(i);
+        }
+
+        bufferedInputStream = new BufferedInputStream(new FileInputStream(name3));
+
+        while (bufferedInputStream.available()>0){
+            int i = bufferedInputStream.read();
+            bufferedOutputStream.write(i);
+        }
+
+
+        bufferedInputStream.close();
+        bufferedOutputStream.close();
+
+    }
+}
