@@ -24,7 +24,7 @@ public class Solution {
         while (sc.hasNextLine()){
             str = sc.nextLine();
  //           System.out.println(str);
-            arr = str.split(" ");
+            arr = str.split("[\\p{Punct}\\s]+");
             for (String a: arr){
                 if (a.equals("world")){
                     count++;
@@ -37,3 +37,4 @@ public class Solution {
 
     }
 }
+
