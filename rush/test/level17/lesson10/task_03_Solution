@@ -47,11 +47,11 @@ public class Solution {
         }
     }
 
-        public synchronized static int getRandomCount() {
+        public static int getRandomCount() {
             return (int) (Math.random() * 3) + 1;
         }
 
-        public synchronized static Drug getRandomDrug() {
+        public static Drug getRandomDrug() {
             int index = (int) ((Math.random() * 1000) % (drugsController.allDrugs.size()));
             List<Drug> drugs = new ArrayList<>(drugsController.allDrugs.keySet());
             return drugs.get(index);
