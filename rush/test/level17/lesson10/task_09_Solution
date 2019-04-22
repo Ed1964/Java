@@ -1,0 +1,76 @@
+package com.javarush.task.task17.task1721;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+/* 
+Транзакционность
+*/
+
+public class Solution {
+    public static List<String> allLines = new ArrayList<String>();
+    public static List<String> forRemoveLines = new ArrayList<String>();
+
+    public static void main(String[] args) {
+
+        try {
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+            String fileName1 = bufferedReader.readLine();
+            String fileName2 = bufferedReader.readLine();
+
+            bufferedReader.close();
+
+            BufferedReader br1 = new BufferedReader(new FileReader(fileName1));
+            BufferedReader br2 = new BufferedReader(new FileReader(fileName2));
+
+
+            while (br1.ready()){
+                allLines.add(br1.readLine());
+            }
+
+            while (br2.ready()){
+                forRemoveLines.add(br2.readLine());
+            }
+
+            new Solution().joinData();
+
+
+            br1.close();
+            br2.close();
+        }
+        catch (CorruptedDataException e){
+            System.out.println("Исключение вылетело");
+        }
+        catch (Exception e){
+            System.out.println("Exception e");
+        }
+
+    }
+
+    public void joinData() throws CorruptedDataException{
+
+        int count = 0;
+        int lengthFRL = forRemoveLines.size();
+        for(String a : forRemoveLines){
+            System.out.println(a);
+            if(allLines.contains(a)){
+                count++;
+            }
+            System.out.println(count);
+        }
+        System.out.println(count);
+        System.out.println(lengthFRL);
+        if(count == lengthFRL){
+                allLines.removeAll(forRemoveLines);
+                System.out.println("Все норм");
+        }
+        else {
+            allLines.clear();
+            System.out.println("Бросаем тут");
+            throw new CorruptedDataException();
+        }
+
+
+    }
+}
