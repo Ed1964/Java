@@ -1,0 +1,70 @@
+package com.javarush.task.task17.task1710;
+
+import java.sql.SQLOutput;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Locale;
+
+/* 
+CRUD
+*/
+
+public class Solution {
+    public static List<Person> allPeople = new ArrayList<Person>();
+
+    static {
+        allPeople.add(Person.createMale("Иванов Иван", new Date()));  //сегодня родился    id=0
+        allPeople.add(Person.createMale("Петров Петр", new Date()));  //сегодня родился    id=1
+    }
+
+    public static void main(String[] args) throws ParseException {
+        //start here - начни тут
+        switch (args[0]){
+
+            case "-c":
+                if(args[2].equals("м")){ allPeople.add(Person.createMale(args[1], new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(args[3]))); }
+                if(args[2].equals("ж")){allPeople.add(Person.createFemale(args[1], new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(args[3]))); }
+                System.out.println((allPeople.size()-1));
+                break;
+
+            case "-u":{
+                int id = Integer.parseInt(args[1]);
+                if (id>=0 && id<allPeople.size()) {
+                    Person pers2 = allPeople.get(id);
+                    pers2.setName(args[2]);
+                    if (args[3].equals("м")) {
+                        pers2.setSex(Sex.MALE);
+                    }
+                    if (args[3].equals("ж")) {
+                        pers2.setSex(Sex.FEMALE);
+                    }
+                    pers2.setBirthDate(new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH).parse(args[4]));
+                }
+                break;
+                }
+
+            case "-d": {
+                int id1 = Integer.parseInt(args[1]);
+                if (id1 >= 0 && id1 < allPeople.size()) {
+                    Person pers3 = allPeople.get(Integer.parseInt(args[1]));
+                    pers3.setName(null);
+                    pers3.setSex(null);
+                    pers3.setBirthDate(null);
+                }
+                break;
+            }
+
+            case "-i":
+                Person pers4 = allPeople.get(Integer.parseInt(args[1]));
+                System.out.print(pers4.getName() + " ");
+                System.out.print(pers4.getSex() + " ");
+                System.out.println((new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH).format(pers4.getBirthDate())));
+                break;
+
+        }
+
+    }
+}
