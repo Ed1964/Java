@@ -1,0 +1,43 @@
+package com.javarush.task.task19.task1920;
+
+/* 
+Самый богатый
+*/
+
+import javax.xml.bind.annotation.adapters.CollapsedStringAdapter;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Map;
+import java.util.TreeMap;
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+
+        BufferedReader reader = new BufferedReader(new FileReader(args[0]));
+        Map<String, Double> people = new TreeMap<>();
+        ArrayList<Double> sums = new ArrayList<>();
+        while (reader.ready()) {
+            String[] stroki = reader.readLine().split(" ");
+            if(people.containsKey(stroki[0])){
+                people.put(stroki[0], people.get(stroki[0]) + Double.parseDouble(stroki[1]));
+            }
+            else {
+                people.put(stroki[0], Double.parseDouble(stroki[1]));
+            }
+        }
+
+
+
+        for (Map.Entry<String, Double> entry: people.entrySet()){
+            if(entry.getValue().equals(Collections.max(people.values()))){
+                System.out.println(entry.getKey());
+            }
+        }
+
+        reader.close();
+    }
+}
