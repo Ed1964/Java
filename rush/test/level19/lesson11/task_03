@@ -1,0 +1,51 @@
+package com.javarush.task.task19.task1921;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
+import java.util.List;
+
+/* 
+Хуан Хуанович
+*/
+
+public class Solution {
+    public static final List<Person> PEOPLE = new ArrayList<Person>();
+
+    public static void main(String[] args) throws IOException, ParseException {
+        BufferedReader reader = new BufferedReader(new FileReader(args[0]));
+
+        while (reader.ready()) {
+
+            String[] stroki = reader.readLine().split(" ");
+            String name = stroki[0];
+            String day = null;
+            String month = null;
+            String year = null;
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd MM yyyy");
+
+
+            for (int i = 0; i < stroki.length-1; i++) {
+
+                if (stroki[i + 1].matches("\\d*")) {
+                    day = stroki[i + 1];
+                    month = stroki[i + 2];
+                    year = stroki[i + 3];
+                    break;
+                } else {
+                    name = name + " " + stroki[i + 1];
+                }
+            }
+            Date dateB = sdf.parse(day + "  " +  month + " " +   year);
+            PEOPLE.add(new Person(name, dateB));
+        }
+        reader.close();
+    }
+}
