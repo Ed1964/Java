@@ -1,0 +1,30 @@
+package com.javarush.task.task19.task1923;
+
+/* 
+Слова с цифрами
+*/
+
+import java.io.*;
+import java.util.Arrays;
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+
+        String fileName1 = args[0];
+        String fileName2 = args[1];
+
+        BufferedReader reader = new BufferedReader(new FileReader(fileName1));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(fileName2));
+        while (reader.ready()){
+            String[] aa = reader.readLine().split(" ");
+            System.out.println(Arrays.toString(aa));
+            for (String l: aa){
+                if (l.matches(".*\\d+.*")){
+                    writer.write(l + " ");
+                }
+            }
+        }
+        reader.close();
+        writer.close();
+    }
+}
