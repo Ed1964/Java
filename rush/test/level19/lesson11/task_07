@@ -1,0 +1,32 @@
+package com.javarush.task.task19.task1925;
+
+/* 
+Длинные слова
+*/
+
+import java.io.*;
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+
+
+        BufferedReader reader = new BufferedReader(new FileReader(args[0]));
+        BufferedWriter writer = new BufferedWriter(new FileWriter(args[1]));
+
+        String dd = "";
+        while (reader.ready()) {
+          String[] slova = reader.readLine().split(" ");
+          for(String str: slova){
+              if (str.length()>6){
+                  dd = dd + str + ",";
+              }
+          }
+        }
+        dd = dd.substring(0, dd.length()-1);
+        writer.write(dd);
+
+        reader.close();
+        writer.close();
+
+    }
+}
