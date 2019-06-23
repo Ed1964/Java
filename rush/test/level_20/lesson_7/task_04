@@ -10,7 +10,26 @@ import java.util.Date;
 Serializable Solution
 */
 public class Solution implements Serializable {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+
+
+        File your_file_name = File.createTempFile("d:/3.txt", null);
+
+        FileOutputStream outputStream = new FileOutputStream(your_file_name);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
+        Solution savedObject = new Solution(10);
+        objectOutputStream.writeObject(savedObject);
+        System.out.println(savedObject.string);
+
+        FileInputStream inputStream = new FileInputStream(your_file_name);
+        ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
+        Solution savedObject1 = new Solution(20);
+        Solution loadedObject  = (Solution) objectInputStream.readObject();
+        System.out.println(loadedObject.string);
+
+        if(savedObject.string.equals(loadedObject.string)){
+            System.out.println("Да, эквивалентны");
+        }
 
 
         System.out.println(new Solution(4));
