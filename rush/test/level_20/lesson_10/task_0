@@ -1,0 +1,29 @@
+package com.javarush.task.task20.task2024;
+
+import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
+
+/* 
+Знакомство с графами
+*/
+public class Solution implements Serializable {
+    int node;
+    List<Solution> edges = new LinkedList<>();
+
+    public static void main(String[] args) throws IOException, ClassNotFoundException {
+
+        String fileName2 = "d:/2.txt";
+
+        Solution sol = new Solution();
+        sol.node = 5;
+        sol.edges.add(new Solution());
+        sol.edges.add(new Solution());
+        FileOutputStream fs = new FileOutputStream(fileName2);
+        ObjectOutputStream objectOutputStream = new ObjectOutputStream(fs);
+        objectOutputStream.writeObject(sol);
+        ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(fileName2));
+        Solution sol2 = (Solution) objectInputStream.readObject();
+        System.out.println(sol2.node);
+    }
+}
