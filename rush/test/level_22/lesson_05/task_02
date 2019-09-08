@@ -1,0 +1,27 @@
+package com.javarush.task.task22.task2203;
+
+/* 
+Между табуляциями
+*/
+public class Solution {
+    public static String getPartOfString(String string) throws TooShortStringException {
+
+            String a = null;
+            String[] sub = string.split("\\t");
+            if (sub.length < 3){
+                throw new TooShortStringException();
+            }
+            else {
+                a = sub[1];
+                return a;
+            }
+
+    }
+
+    public static class TooShortStringException extends Exception {
+    }
+
+    public static void main(String[] args) throws TooShortStringException {
+        System.out.println(getPartOfString("\tJavaRush - лучший сервис \tобучения Java.\t"));
+    }
+}
