@@ -14,6 +14,6 @@ public class Solution {
     }
 
     public static String getFormattedString() {
-        return "%1$td:%2$tm:%3$ty %4$TH:%5$TM:%6$TS";
+        return "%td:%tm:%ty %TH:%TM:%TS";
     }
 }
