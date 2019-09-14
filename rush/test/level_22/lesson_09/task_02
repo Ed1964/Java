@@ -1,0 +1,47 @@
+package com.javarush.task.task22.task2208;
+
+import java.util.HashMap;
+import java.util.Map;
+
+/* 
+Формируем WHERE
+*/
+public class Solution {
+    public static void main(String[] args) {
+        Map<String, String> map = new HashMap<String, String>();
+        map.put("name", "Ivanov");
+        map.put("coutry", "Ukraine");
+        map.put("city", "Kiev");
+        map.put("age", "18");
+        getQuery(map);
+
+
+    }
+    public static String getQuery(Map<String, String> params) {
+
+        StringBuilder strB = new StringBuilder();
+        if(params.size()<1){
+            strB.append(" ");
+        }
+        else{
+            for(Map.Entry<String,String> pair: params.entrySet()){
+                if(pair.getKey()!= null && pair.getValue()!= null && !pair.getKey().isEmpty() && !pair.getValue().isEmpty()){
+                    strB.append(pair.getKey());
+                     strB.append(" = '");
+                     strB.append(pair.getValue());
+                     strB.append("' and ");
+                }
+            }
+        }
+
+//        int len = strB.length();  // ЧУЖОЕ РЕШЕНИЕ УДАЛЕНИЯ and. МОЕ ТОЖЕ РАБОТАЛО!!!! Но не принималось.
+//        System.out.println(len);
+//        strB.setLength(len > 4 ? len - 5: 0);
+
+
+        strB.delete(strB.length()-5, strB.length());
+        System.out.println(strB);
+        return strB.toString();
+
+    }
+}
