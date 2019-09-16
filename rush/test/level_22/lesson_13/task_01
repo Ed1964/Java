@@ -1,0 +1,27 @@
+package com.javarush.task.task22.task2210;
+
+import java.lang.reflect.Array;
+import java.text.CollationElementIterator;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.StringTokenizer;
+
+/*
+StringTokenizer
+*/
+public class Solution {
+    public static void main(String[] args) {
+        System.out.println(Arrays.toString(getTokens("level22.lesson13.task01", ".")));
+
+    }
+    public static String [] getTokens(String query, String delimiter) {
+        StringTokenizer tokenizer = new StringTokenizer(query, delimiter);
+        ArrayList<String> aa = new ArrayList<>();
+            while (tokenizer.hasMoreTokens()){
+                String token = tokenizer.nextToken();
+                aa.add(token);
+        }
+        return aa.toArray(new String[0]);
+    }
+}
