@@ -1,0 +1,38 @@
+package com.javarush.task.task22.task2212;
+
+import com.sun.org.apache.xerces.internal.impl.xs.identity.Selector;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+/*
+Проверка номера телефона
+*/
+public class Solution {
+    public static boolean checkTelNumber(String telNumber) {
+        Boolean bol=false;
+        if (telNumber==null) return false;
+        if (telNumber=="") return false;
+        if((telNumber.charAt(0))==43 ){
+
+            Pattern patern = Pattern.compile("\\+?\\d?\\d?\\(?050\\)?\\d{3,7}-?\\d{2,4}-?\\d{2}?");
+            Matcher m = patern.matcher(telNumber);
+            bol = m.find();
+
+       }
+
+//        if((telNumber.charAt(0))==40 || ((telNumber.charAt(0))>=48 && (telNumber.charAt(0))>=57)){
+//            Pattern patern = Pattern.compile("\\+?\\d?\\d?\\(?050\\)?\\d{3,7}-?\\d{2,4}-?\\d{2}?");
+//            Matcher m = patern.matcher(telNumber);
+//            bol = m.find();
+//        }
+
+          return bol;
+    }
+
+    public static void main(String[] args) {
+
+        System.out.println(checkTelNumber("(0)501234567"));
+
+    }
+}
