@@ -71,16 +71,9 @@ public class Solution {
 
         @Override
         public int compare(Stock o1, Stock o2) {
-            double oo1= (double)o1.get("last")- (double)o1.get("open");
-            double oo2 = (double)o2.get("last")- (double)o2.get("open");
-            int l=0;
-            if(oo1 > oo2){
-                l=1;
-            } if(oo1< oo2){
-                l=-1;
-            }
-            return l;
-        }
+             Double oo1= (double)o1.get("last")- (double)o1.get("open");
+            Double oo2 = (double)o2.get("last")- (double)o2.get("open");
+            return oo2.compareTo(oo1);
     }
 
     public static void sort(List<Stock> list) {
