@@ -1,0 +1,43 @@
+package com.javarush.task.task25.task2506;
+
+/* 
+Мониторинг состояния нити
+*/
+public class Solution {
+    public static void main(String[] args) throws InterruptedException {
+        Thread target = new Thread();
+        LoggingStateThread loggingStateThread = new LoggingStateThread(target);
+
+        loggingStateThread.start(); //NEW
+        Thread.sleep(100);
+        target.start();  //RUNNABLE
+        Thread.sleep(100);
+        //TERMINATED
+    }
+}
+
+
+package com.javarush.task.task25.task2506;
+
+public class LoggingStateThread extends Thread{
+
+    Thread target;
+    State state = null;
+    State lastState = null;
+
+    @Override
+    public void run() {
+        while (state != State.TERMINATED){
+            state = target.getState();
+            if(state != lastState){
+                System.out.println(state);
+                lastState = state;
+            }
+        }
+
+    }
+
+    public LoggingStateThread(Thread target) {
+        this.target = target;
+    }
+}
