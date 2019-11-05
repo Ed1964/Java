@@ -1,0 +1,42 @@
+package com.javarush.task.task25.task2512;
+
+import java.util.ArrayDeque;
+import java.util.Stack;
+
+/*
+Живем своим умом
+*/
+public class Solution implements Thread.UncaughtExceptionHandler {
+
+    Stack <Throwable> stack = new Stack<>();
+
+
+    public  void method(Throwable e){
+
+        if (e != null){
+            stack.push(e);
+            method(e.getCause());
+        }
+    }
+    @Override
+    public void uncaughtException(Thread t, Throwable e) {
+
+        t.interrupt();
+        method(e);
+
+
+        while (!stack.empty()) {
+            Throwable throwable1 = stack.pop();
+            System.out.println(throwable1.getClass().getName() + ": " + throwable1.getMessage());
+        }
+
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        Thread.setDefaultUncaughtExceptionHandler(new Solution());
+
+        throw  new Exception("ABC", new RuntimeException("DEF", new IllegalAccessException("GHI")));
+
+    }
+}
