@@ -1,0 +1,41 @@
+package com.javarush.task.task26.task2601;
+
+import java.lang.reflect.Array;
+import java.util.*;
+
+/*
+Почитать в инете про медиану выборки
+*/
+public class Solution {
+
+    public static void main(String[] args) {
+
+        Integer[] arr = {13, 8, 15, 5, 17};
+//        System.out.println(Arrays.toString(arr));
+        sort(arr);
+
+    }
+
+    public static Integer[] sort(Integer[] array) {
+        //implement logic here
+
+
+        Arrays.sort(array);
+//        System.out.println(arrayList);
+        int mediana;
+        if (array.length%2!=0){
+//            System.out.println("Нечетный");
+              mediana = array[array.length/2];
+        }
+        else {
+            mediana = (array[array.length/2-1] + array[array.length/2])/2;
+//            System.out.println("Четный");
+//            System.out.println(mediana);
+
+        }
+        Arrays.sort(array, Comparator.comparingInt(x -> Math.abs(mediana - x)));
+        //System.out.println(arrayList);
+
+        return array;
+    }
+}
