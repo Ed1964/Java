@@ -1,0 +1,50 @@
+package com.javarush.task.task29.task2913;
+
+import java.util.Random;
+
+/* 
+Замена рекурсии
+*/
+
+public class Solution {
+    private static int numberA;
+    private static int numberB;
+
+    public static String getAllNumbersBetween(int a, int b) {
+//        if (a > b) {
+//            return a + " " + recursion(a - 1, b);
+//        } else {
+//            if (a == b) {
+//                return Integer.toString(a);
+//            }
+//            return a + " " + recursion(a + 1, b);
+//        }
+
+        StringBuilder sb = new StringBuilder();
+
+        if(a>b){
+            for(int i = a; i>=b; i--){
+               sb =sb.append(i + " ");
+            }
+ //           return String.valueOf(sb);
+        }
+        else if(a < b) {
+            for (int i = a; i <= b; i++) {
+                sb = sb.append(i + " ");
+ //               return String.valueOf(sb);
+            }
+        }else {
+            sb = sb.append(a);
+//            return String.valueOf(sb);
+        }
+        return String.valueOf(sb).trim();
+    }
+
+    public static void main(String[] args) {
+        Random random = new Random();
+        numberA = random.nextInt(1000);
+        numberB = random.nextInt(1000);
+        System.out.println(getAllNumbersBetween(numberA, numberB));
+        System.out.println(getAllNumbersBetween(numberB, numberA));
+    }
+}
