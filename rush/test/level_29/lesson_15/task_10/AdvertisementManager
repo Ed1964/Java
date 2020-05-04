@@ -1,0 +1,91 @@
+МОЙ ВАРИАНТ, КОТОРЫЙ Я ИСПЫТЫВАЛ С РАЗНЫМИ ВЫВОДАМИ
+
+
+package com.javarush.task.task27.task2712.ad;
+
+import com.javarush.task.task27.task2712.ConsoleHelper;
+import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class AdvertisementManager {
+
+    public final AdvertisementStorage storage = AdvertisementStorage.getInstance();
+
+    private int timeSeconds;
+
+    public AdvertisementManager(int timeSeconds) {
+        this.timeSeconds = timeSeconds;
+    }
+
+    public void processVideos(){
+//        if(storage.list().isEmpty()){
+//            throw new NoVideoAvailableException();
+//        } УБЕРИ ЭТО ПРИ ПРОВЕРКЕ!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+//        List <Advertisement> allVideo = AdvertisementStorage.getInstance().list();
+        List <Advertisement> allVideo = new ArrayList<>();
+
+        allVideo.add(new Advertisement(null, "First Video", 5000, 100, 3 * 60));
+        allVideo.add(new Advertisement(null, "Second Video", 100, 10, 15 * 60));
+        allVideo.add(new Advertisement(null,  "Third Video", 400, 2, 10 * 60));
+        allVideo.add(new Advertisement(null, "Fourth Video", 500, 20, 2 * 60));
+        allVideo.add(new Advertisement(null, "Fifth Video", 4000, 50, 8 * 60));
+        allVideo.add(new Advertisement(null, "Sixth Video", 5000, 100, 5 * 60));
+
+        List<Advertisement> showList = new ArrayList<>();
+        int showTimeInSeconds = 0;
+
+        Comparator<Advertisement> comparatorDuration =
+                Comparator.comparingInt(Advertisement::getDuration);
+        Comparator<Advertisement> comparatorAmount =
+                Comparator.comparing(Advertisement::getAmountPerOneDisplaying).reversed();
+
+
+
+        System.out.println("До сортировки компаратором");
+        for(Advertisement advertisement: allVideo){
+            ConsoleHelper.writeMessage(advertisement.getName());
+        }
+
+        System.out.println("После сортировки компаратором по убыванию цены за просмотр");
+        allVideo.sort(comparatorDuration);
+        allVideo.sort(comparatorAmount);
+ //       Collections.reverse(allVideo);
+
+
+
+
+        for(Advertisement advertisement: allVideo){
+            ConsoleHelper.writeMessage(advertisement.getName());
+        }
+
+        System.out.println("Время всего заказа до магии " + this.timeSeconds);
+
+
+
+        for(Advertisement advertisement : allVideo){
+            if (advertisement.getDuration() <= this.timeSeconds - showTimeInSeconds ){
+                showList.add(advertisement);
+                showTimeInSeconds = showTimeInSeconds + advertisement.getDuration();
+                System.out.println("Промежуточное время рекламы " + showTimeInSeconds);
+
+                ConsoleHelper.writeMessage( advertisement.getName() + " is displaying... " +
+                        advertisement.getAmountPerOneDisplaying() + ", " +
+                        1000*advertisement.getAmountPerOneDisplaying()/advertisement.getDuration());
+                advertisement.revalidate();
+            }
+        }
+
+
+        System.out.println("Время всего заказа " + this.timeSeconds);
+        System.out.println("Время показа видеороликов " + showTimeInSeconds);
+
+
+
+
+    }
+}
