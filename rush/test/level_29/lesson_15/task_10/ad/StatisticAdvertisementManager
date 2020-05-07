@@ -1,0 +1,55 @@
+package com.javarush.task.task27.task2712.ad;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class StatisticAdvertisementManager {
+
+    private AdvertisementStorage advertisementStorage = AdvertisementStorage.getInstance();
+
+
+    private static StatisticAdvertisementManager instance;
+
+    public static StatisticAdvertisementManager getInstance(){
+        if(instance == null){
+            instance = new StatisticAdvertisementManager();
+        } return instance;
+    }
+
+    private StatisticAdvertisementManager() {
+
+    }
+
+
+    public List<Advertisement> getActiveVideoList (){
+
+        List <Advertisement> setAct = new ArrayList<>();
+
+        for (Advertisement a :advertisementStorage.list()){
+            if(a.getHits()>0){
+                setAct.add(a);
+            }
+        }
+
+        return setAct;
+
+    }
+
+    public List<Advertisement> getArchiveVideoList (){
+
+        List <Advertisement> setArch = new ArrayList<>();
+
+        for (Advertisement a :advertisementStorage.list()){
+            if(a.getHits() == 0){
+                setArch.add(a);
+            }
+        }
+
+        return setArch;
+
+    }
+
+
+}
