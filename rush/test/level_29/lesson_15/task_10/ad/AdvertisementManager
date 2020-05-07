@@ -1,0 +1,65 @@
+package com.javarush.task.task27.task2712.ad;
+
+import com.javarush.task.task27.task2712.ConsoleHelper;
+import com.javarush.task.task27.task2712.statistic.StatisticManager;
+import com.javarush.task.task27.task2712.statistic.event.VideoSelectedEventDataRow;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
+
+public class AdvertisementManager {
+
+    public final AdvertisementStorage storage = AdvertisementStorage.getInstance();
+
+    private int timeSeconds;
+
+    public AdvertisementManager(int timeSeconds) {
+        this.timeSeconds = timeSeconds;
+    }
+
+    public void processVideos(){
+        if(storage.list().isEmpty()){
+            throw new NoVideoAvailableException();
+        }
+
+        int showTimeInSeconds = 0;
+        List <Advertisement> allVideo = storage.list();
+        List<Advertisement> showVideo = new ArrayList<>();
+        long advertismentAmount = 0;
+        int advertismentDuration = 0;
+
+        Comparator<Advertisement> comparatorDuration =
+                Comparator.comparingInt(Advertisement::getDuration);
+        Comparator<Advertisement> comparatorAmount =
+                Comparator.comparing(Advertisement::getAmountPerOneDisplaying).reversed();
+
+        allVideo.sort(comparatorDuration);
+        allVideo.sort(comparatorAmount);
+
+
+        for(Advertisement advertisement : allVideo){
+            if (advertisement.getDuration() <= this.timeSeconds - showTimeInSeconds && advertisement.getHits() > 0){
+                showTimeInSeconds = showTimeInSeconds + advertisement.getDuration();
+                showVideo.add(advertisement);
+            }
+        }
+
+
+        for(Advertisement advertisement:showVideo){
+            advertismentAmount += advertisement.getAmountPerOneDisplaying();
+            advertismentDuration += advertisement.getDuration();
+        }
+
+        StatisticManager.getInstance().register(new VideoSelectedEventDataRow(showVideo, advertismentAmount, advertismentDuration ));
+
+        for(Advertisement advertisement: showVideo){
+            ConsoleHelper.writeMessage( advertisement.getName() + " is displaying... " +
+                    advertisement.getAmountPerOneDisplaying() + ", " +
+                    1000*advertisement.getAmountPerOneDisplaying()/advertisement.getDuration());
+            advertisement.revalidate();
+        }
+
+    }
+}
