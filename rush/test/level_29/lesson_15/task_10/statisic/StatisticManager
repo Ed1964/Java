@@ -1,0 +1,120 @@
+package com.javarush.task.task27.task2712.statistic;
+
+import com.javarush.task.task27.task2712.kitchen.Cook;
+import com.javarush.task.task27.task2712.statistic.event.CookedOrderEventDataRow;
+import com.javarush.task.task27.task2712.statistic.event.EventDataRow;
+import com.javarush.task.task27.task2712.statistic.event.EventType;
+import com.javarush.task.task27.task2712.statistic.event.VideoSelectedEventDataRow;
+
+import java.util.*;
+
+public class StatisticManager {
+
+    private StatisticStorage statisticStorage = new StatisticStorage();
+
+    private static StatisticManager instance;
+
+    public static StatisticManager getInstance() {
+        if(instance == null){
+            instance = new StatisticManager();
+        } return instance;
+    }
+
+    private StatisticManager() {
+    }
+
+    private class StatisticStorage{
+
+        private Map<EventType, List<EventDataRow>> storage = new HashMap<>();
+
+        private StatisticStorage() {
+            for(EventType eventType: EventType.values()){
+                storage.put(eventType, new ArrayList<EventDataRow>());
+            }
+        }
+
+        private void put(EventDataRow data){
+            storage.get(data.getType()).add(data);
+        }
+
+        private List<EventDataRow> get(EventType eventType) {
+            return storage.get(eventType);
+        }
+    }
+
+    public void register(EventDataRow data){
+        statisticStorage.put(data);
+    }
+
+
+    public Map<Date, Double> getVideoDataFromStorage(){
+
+        // из хранилища достанет все данные, относящиеся к отображению рекламы, и посчитает общую прибыль за каждый день
+
+        List<EventDataRow> EventDataRowList = statisticStorage.get(EventType.SELECTED_VIDEOS);
+
+        TreeMap<Date, Double> treeMapData = new TreeMap<>(Collections.reverseOrder());
+
+        for(EventDataRow eventDataRow : EventDataRowList){
+            Date date = dateWithoutTime(eventDataRow.getDate());
+            VideoSelectedEventDataRow eventData = (VideoSelectedEventDataRow) eventDataRow;
+
+             if(treeMapData.containsKey(date)){
+             treeMapData.put(date, treeMapData.get(date) + (0.01*(eventData.getAmount())));
+
+             }
+
+            else {
+             treeMapData.put(date, (0.01*(eventData.getAmount())));
+            }
+        }
+        return treeMapData;
+    }
+
+    public Map<Date, TreeMap<String, Integer>> getCookDataFromStorage(){
+
+        List<EventDataRow> EventDataRowList = statisticStorage.get(EventType.COOKED_ORDER);
+
+        TreeMap<Date, TreeMap<String, Integer>> firstMap = new TreeMap<>(Collections.reverseOrder());
+
+        for(EventDataRow eventDataRow : EventDataRowList) {
+            Date date = dateWithoutTime(eventDataRow.getDate());
+            CookedOrderEventDataRow eventCook = (CookedOrderEventDataRow) eventDataRow;
+
+            int time = eventCook.getTime();
+            String cookName = eventCook.getCookName();
+            if(time == 0) continue;
+            if(time %60 == 0) time = time/60;
+            else time = time/60 + 1;
+
+            if(firstMap.containsKey(date)){
+
+                TreeMap<String, Integer> secondMap = firstMap.get(date);
+
+                if(secondMap.containsKey(cookName)){
+                    secondMap.put(cookName, secondMap.get(cookName) + time);
+                }
+                else {
+                    secondMap.put(cookName, time);
+                }
+            } else {
+                TreeMap<String, Integer> secMap = new TreeMap<>();
+                secMap.put(cookName, time);
+                firstMap.put(date, secMap );
+            }
+        }
+
+        return firstMap;
+    }
+
+
+    private Date dateWithoutTime(Date date) {
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+}
