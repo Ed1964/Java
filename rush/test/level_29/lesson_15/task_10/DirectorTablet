@@ -1,0 +1,75 @@
+package com.javarush.task.task27.task2712;
+
+import com.javarush.task.task27.task2712.ad.Advertisement;
+import com.javarush.task.task27.task2712.ad.StatisticAdvertisementManager;
+import com.javarush.task.task27.task2712.statistic.StatisticManager;
+
+import javax.swing.table.TableRowSorter;
+import java.text.SimpleDateFormat;
+import java.util.*;
+
+public class DirectorTablet {
+
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yyyy", Locale.ENGLISH);
+
+    public void printAdvertisementProfit(){
+
+
+        //какую сумму заработали на рекламе, сгруппировать по дням
+        double totalSum = 0;
+        for(Map.Entry<Date, Double> entry: StatisticManager.getInstance().getVideoDataFromStorage().entrySet()){
+
+            ConsoleHelper.writeMessage(String.format("%s - %.2f", simpleDateFormat.format(entry.getKey()),entry.getValue()));
+            totalSum += entry.getValue();
+
+        }
+        if(totalSum>0) ConsoleHelper.writeMessage(String.format("Total - %.2f", totalSum));
+    }
+
+    public void printCookWorkloading(){
+
+        for(Map.Entry<Date, TreeMap<String, Integer>> entry: StatisticManager.getInstance().getCookDataFromStorage().entrySet()){
+
+            ConsoleHelper.writeMessage(String.format("%s", simpleDateFormat.format(entry.getKey())));
+
+            for(Map.Entry<String, Integer> entry1: entry.getValue().entrySet()){
+                ConsoleHelper.writeMessage(String.format("%s - %d min", entry1.getKey(), entry1.getValue()));
+            }
+        }
+
+
+        // загрузка (рабочее время) повара, сгруппировать по дням
+    }
+
+    public void printActiveVideoSet(){
+
+        // список активных роликов и оставшееся количество показов по каждому
+
+
+        List<Advertisement> listAct = StatisticAdvertisementManager.getInstance().getActiveVideoList();
+        listAct.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+
+        for(Advertisement advertisement : listAct){
+            ConsoleHelper.writeMessage(String.format("%s - %d", advertisement.getName(), advertisement.getHits()));
+        }
+
+
+
+    }
+
+    public void printArchivedVideoSet(){
+
+        //список неактивных роликов (с оставшемся количеством показов равным нулю)
+        List<Advertisement> listArch = StatisticAdvertisementManager.getInstance().getArchiveVideoList();
+        listArch.sort((o1, o2) -> o1.getName().compareToIgnoreCase(o2.getName()));
+
+        for(Advertisement advertisement : listArch){
+            ConsoleHelper.writeMessage(String.format("%s", advertisement.getName()));
+        }
+
+
+    }
+
+
+
+}
