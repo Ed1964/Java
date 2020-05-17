@@ -1,0 +1,34 @@
+package com.javarush.task.task31.task3102;
+
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
+
+/* 
+Находим все файлы
+*/
+public class Solution {
+    public static List<String> getFileTree(String root) throws IOException {
+        List<String> fileList = new ArrayList<>();
+        ArrayDeque<File> queue = new ArrayDeque<>();
+        queue.add(new File(root));
+        while (!queue.isEmpty()){
+            File aa = queue.poll();
+            if(aa.isDirectory()){
+                for(File file: Objects.requireNonNull(aa.listFiles())){
+                    queue.add(file);
+                }
+            } else if(!aa.isDirectory()){
+                fileList.add(aa.getAbsolutePath());
+            }
+        }
+        return fileList;
+
+    }
+
+    public static void main(String[] args) {
+
+
+
+    }
+}
