@@ -1,0 +1,32 @@
+package com.javarush.task.task32.task3202;
+
+import java.io.*;
+
+/* 
+Читаем из потока
+*/
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        StringWriter writer = getAllDataFromInputStream(new FileInputStream("D:\\1.txt"));
+        System.out.println(writer.toString());
+    }
+
+    public static StringWriter getAllDataFromInputStream(InputStream is) throws IOException {
+        String result="";
+        StringWriter stringWriter = new StringWriter();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if(is == null){
+            return new StringWriter();
+        } else {
+            while (is.available()>0){
+                //stringWriter.write(is.read());
+                stringBuilder.append((char) is.read());
+
+            }
+        }
+        result = stringBuilder.toString();
+        stringWriter.write(result);
+        return stringWriter;
+    }
+}
