@@ -4,13 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ConvertableUtil<T> implements Convertable<T> {
-
-    private T object;
-
-    public ConvertableUtil(T object) {
-        this.object = object;
-    }
+public class ConvertableUtil {
 
     public static Map convert(List<? extends Convertable> list) {
         Map result = new HashMap();
@@ -20,9 +14,5 @@ public class ConvertableUtil<T> implements Convertable<T> {
         }
         return result;
     }
-
-    @Override
-    public T getKey() {
-        return object;
-    }
 }
+
