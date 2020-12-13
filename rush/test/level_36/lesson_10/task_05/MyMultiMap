@@ -1,0 +1,127 @@
+package com.javarush.task.task36.task3610;
+
+import java.io.Serializable;
+import java.util.*;
+
+public class MyMultiMap<K, V> extends HashMap<K, V> implements Cloneable, Serializable {
+    static final long serialVersionUID = 123456789L;
+    private HashMap<K, List<V>> map;
+    private int repeatCount;
+
+    public MyMultiMap(int repeatCount) {
+        this.repeatCount = repeatCount;
+        map = new HashMap<>();
+    }
+
+    @Override
+    public int size() {
+        return values().size();
+        //напишите тут ваш код
+    }
+
+    @Override
+    public V put(K key, V value) {
+        V someReturnValue = null;
+
+        //напишите тут ваш код
+
+        if(keySet().contains(key)){
+            List<V> list2 = map.get(key);
+            V last = list2.get(list2.size()-1);
+            if(list2.size() < repeatCount){
+                if(map.get(key).size() == 0){
+                    someReturnValue = null;
+                }
+                list2.add(value);
+            } else if(list2.size() == repeatCount){
+                list2.remove(list2.get(0));
+                list2.add(value);
+            }
+            someReturnValue = last;
+        }
+
+        if(!keySet().contains(key)){
+            List<V> listOfValue= new ArrayList<>();
+            listOfValue.add(value);
+            map.put(key, listOfValue);
+            someReturnValue = null;
+        }
+
+
+        return someReturnValue;
+    }
+
+    @Override
+    public V remove(Object key) {
+        //напишите тут ваш код
+        V someReturnValue = null;
+
+        if(!keySet().contains(key)){
+            return someReturnValue;
+        } else {
+            if (map.get(key).size() == 0) {
+                map.remove(key, map.get(key));
+            } else {
+                someReturnValue = map.get(key).get(0);
+                map.get(key).remove(map.get(key).get(0));
+                if (map.get(key).size() == 0) {
+                    map.remove(key, map.get(key));
+                }
+            }
+        }
+        return someReturnValue;
+    }
+
+    @Override
+    public Set<K> keySet() {
+
+        Set<K> keySet = new HashSet<>();
+
+        for(K key: map.keySet()){
+            keySet.add(key);
+        }
+        return keySet;
+        //напишите тут ваш код
+    }
+
+    @Override
+    public Collection<V> values() {
+
+        List<V> list = new ArrayList<>();
+        for(List<V> val: map.values()){
+            for(V val1: val){
+                list.add(val1);
+            }
+        }
+        return list;
+
+        //напишите тут ваш код
+    }
+
+    @Override
+    public boolean containsKey(Object key) {
+        //напишите тут ваш код
+        return keySet().contains(key);
+    }
+
+    @Override
+    public boolean containsValue(Object value) {
+        //напишите тут ваш код
+        return values().contains(value);
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder("{");
+        for (Map.Entry<K, List<V>> entry : map.entrySet()) {
+            sb.append(entry.getKey());
+            sb.append("=");
+            for (V v : entry.getValue()) {
+                sb.append(v);
+                sb.append(", ");
+            }
+        }
+        String substring = sb.substring(0, sb.length() - 2);
+        return substring + "}";
+    }
+}
