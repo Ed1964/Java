@@ -1,0 +1,83 @@
+package com.javarush.task.task33.task3310.tests;
+
+import com.javarush.task.task33.task3310.Helper;
+import com.javarush.task.task33.task3310.Shortener;
+import com.javarush.task.task33.task3310.strategy.HashBiMapStorageStrategy;
+import com.javarush.task.task33.task3310.strategy.HashMapStorageStrategy;
+import org.junit.Assert;
+import org.junit.Test;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+public class SpeedTest {
+
+    public long getTimeToGetIds(Shortener shortener, Set<String> strings, Set<Long> ids){
+
+        Date date1 = new Date();
+        for(String s: strings){
+            Long  id1 = shortener.getId(s);
+            ids.add(id1);
+        }
+        Date date2 = new Date();
+        Long time1 = date2.getTime() - date1.getTime();
+        return time1;
+
+    }
+
+    public long getTimeToGetStrings(Shortener shortener, Set<Long> ids, Set<String> strings){
+        Date date1 = new Date();
+
+        for(Long id: ids){
+            String str = shortener.getString(id);
+        }
+
+        Date date2 = new Date();
+        Long time1 = date2.getTime() - date1.getTime();
+        return time1;
+    }
+
+    @Test
+    public void testHashMapStorage(){
+
+        HashMapStorageStrategy hashMapStorageStrategy = new HashMapStorageStrategy();
+        Shortener shortener1 = new Shortener(hashMapStorageStrategy);
+
+        HashBiMapStorageStrategy hashBiMapStorageStrategy = new HashBiMapStorageStrategy();
+        Shortener shortener2 = new Shortener(hashBiMapStorageStrategy);
+
+        Set<String> origStrings = new HashSet<>();
+        Set<Long> idss = new HashSet<>();
+
+        for(int i = 0; i < 10000; i++){
+            origStrings.add(Helper.generateRandomString());
+        }
+
+        Date date1 = new Date();
+        getTimeToGetIds(shortener1, origStrings, idss);
+        Date date2 = new Date();
+        Long timeShortener1 = date2.getTime() - date1.getTime();
+
+        Date date3 = new Date();
+        getTimeToGetIds(shortener2, origStrings, idss);
+        Date date4 = new Date();
+        Long timeShortener2 = date4.getTime() - date3.getTime();
+
+        Assert.assertTrue(timeShortener1 > timeShortener2);
+
+        Date date5 = new Date();
+        getTimeToGetStrings(shortener1, idss, origStrings);
+        Date date6 = new Date();
+        Long timeShortener1String = date6.getTime() - date5.getTime();
+
+        Date date7 = new Date();
+        getTimeToGetStrings(shortener2, idss, origStrings);
+        Date date8 = new Date();
+        Long timeShortener2String = date8.getTime() - date7.getTime();
+
+        Assert.assertEquals(timeShortener1String, timeShortener2String, 80);
+
+    }
+
+}
