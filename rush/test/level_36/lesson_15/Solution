@@ -1,0 +1,76 @@
+package com.javarush.task.task33.task3310;
+
+import com.javarush.task.task33.task3310.strategy.FileStorageStrategy;
+import com.javarush.task.task33.task3310.strategy.HashMapStorageStrategy;
+import com.javarush.task.task33.task3310.strategy.OurHashMapStorageStrategy;
+import com.javarush.task.task33.task3310.strategy.StorageStrategy;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+public class Solution {
+
+    public static Set<Long> getIds(Shortener shortener, Set<String> strings){
+
+        Set<Long> setOfId = new HashSet<>();
+
+        for(String str: strings){
+            setOfId.add(shortener.getId(str));
+        }
+        return setOfId;
+    }
+
+    public static Set<String> getStrings(Shortener shortener, Set<Long> keys){
+
+        Set<String> setOfString = new HashSet<>();
+
+        for(Long key: keys){
+            setOfString.add(shortener.getString(key));
+        }
+        return setOfString;
+    }
+
+    public static void testStrategy(StorageStrategy strategy, long elementsNumber){
+
+        Set<String> setOfStringIn = new HashSet<>();
+        Shortener shortener = new Shortener(strategy);
+        Helper.printMessage(strategy.getClass().getSimpleName());
+        for(long  i = 0; i < elementsNumber; i++){
+            String a = Helper.generateRandomString();
+            setOfStringIn.add(a);
+        }
+
+
+        Date date1 = new Date();
+        Set<Long> set1  =  getIds(shortener, setOfStringIn);
+        Date date2 = new Date();
+        Long timeOfGetIds = date2.getTime() - date1.getTime();
+        Helper.printMessage(timeOfGetIds + " ms");
+
+        Date date3 = new Date();
+        Set<String>  set2 = getStrings(shortener, set1);
+        Date date4 = new Date();
+
+        Long timeOfGetStrings = date4.getTime() - date3.getTime();
+        Helper.printMessage(timeOfGetStrings + " ms");
+
+        if(setOfStringIn.containsAll(set2)){
+            Helper.printMessage("Тест пройден.");
+        } else Helper.printMessage("Тест не пройден.");
+
+
+    }
+
+
+
+
+    public static void main(String[] args) {
+
+        StorageStrategy hashMapStorageStrategy = new HashMapStorageStrategy();
+        testStrategy(hashMapStorageStrategy, 10000);
+
+
+    }
+
+}
