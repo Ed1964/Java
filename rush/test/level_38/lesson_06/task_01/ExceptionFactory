@@ -1,0 +1,39 @@
+package com.javarush.task.task38.task3804;
+
+import static com.javarush.task.task38.task3804.ApplicationExceptionMessage.SOCKET_IS_CLOSED;
+import static com.javarush.task.task38.task3804.ApplicationExceptionMessage.UNHANDLED_EXCEPTION;
+import static com.javarush.task.task38.task3804.DatabaseExceptionMessage.NOT_ENOUGH_CONNECTIONS;
+import static com.javarush.task.task38.task3804.DatabaseExceptionMessage.NO_RESULT_DUE_TO_TIMEOUT;
+import static com.javarush.task.task38.task3804.UserExceptionMessage.USER_DOES_NOT_EXIST;
+import static com.javarush.task.task38.task3804.UserExceptionMessage.USER_DOES_NOT_HAVE_PERMISSIONS;
+
+public class ExceptionFactory {
+
+    public static Throwable exceptionReturner(Enum e){
+        if(e != null){
+
+            System.out.println(e.toString());
+            if (ApplicationExceptionMessage.UNHANDLED_EXCEPTION.equals(e)) {
+                return new Exception(e.name().charAt(0) + e.name().substring(1).toLowerCase().replace("_", " "));
+
+            } else if (ApplicationExceptionMessage.SOCKET_IS_CLOSED.equals(e)) {
+                return new Exception(e.name().charAt(0) + e.name().substring(1).toLowerCase().replace("_", " "));
+
+            } else if (DatabaseExceptionMessage.NO_RESULT_DUE_TO_TIMEOUT.equals(e)) {
+                return new RuntimeException(e.name().charAt(0) + e.name().substring(1).toLowerCase().replace("_", " "));
+
+            } else if (DatabaseExceptionMessage.NOT_ENOUGH_CONNECTIONS.equals(e)) {
+                return new RuntimeException(e.name().charAt(0) + e.name().substring(1).toLowerCase().replace("_", " "));
+
+            } else if (UserExceptionMessage.USER_DOES_NOT_EXIST.equals(e)) {
+                return new Error(e.name().charAt(0) + e.name().substring(1).toLowerCase().replace("_", " "));
+
+            } else if (UserExceptionMessage.USER_DOES_NOT_HAVE_PERMISSIONS.equals(e)) {
+                return new Error(e.name().charAt(0) + e.name().substring(1).toLowerCase().replace("_", " "));
+            }
+        }
+        return new IllegalArgumentException();
+    }
+
+
+}
