@@ -1,0 +1,32 @@
+package com.javarush.task.task38.task3803;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+
+/* 
+Runtime исключения (unchecked exception)
+*/
+
+public class VeryComplexClass {
+    public void methodThrowsClassCastException() {
+
+        Object i = Integer.valueOf(1);
+        String a = (String)i;
+
+
+    }
+
+    public void methodThrowsNullPointerException() {
+
+        File file = null;
+        file.getName();
+
+
+    }
+
+    public static void main(String[] args) {
+
+    }
+}
