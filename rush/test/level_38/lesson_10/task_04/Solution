@@ -1,0 +1,40 @@
+package com.javarush.task.task38.task3812;
+
+/* 
+Обработка аннотаций
+*/
+
+public class Solution {
+    public static void main(String[] args) {
+        printFullyQualifiedNames(Solution.class);
+        printFullyQualifiedNames(SomeTest.class);
+
+        printValues(Solution.class);
+        printValues(SomeTest.class);
+    }
+
+    public static boolean printFullyQualifiedNames(Class c) {
+        if(c.isAnnotationPresent(PrepareMyTest.class)){
+
+            PrepareMyTest prepareMyTest1 = (PrepareMyTest) c.getAnnotation(PrepareMyTest.class);
+            for(String string: prepareMyTest1.fullyQualifiedNames()) {
+                System.out.println(prepareMyTest1);
+            }
+            return true;
+        }
+
+        return false;
+    }
+
+    public static boolean printValues(Class c) {
+        if(c.isAnnotationPresent(PrepareMyTest.class)){
+
+            PrepareMyTest prepareMyTest2 = (PrepareMyTest) c.getAnnotation(PrepareMyTest.class);
+            for(Class<?> className: prepareMyTest2.value()){
+                System.out.println(className.getSimpleName());
+            }
+            return true;
+        }
+        return false;
+    }
+}
