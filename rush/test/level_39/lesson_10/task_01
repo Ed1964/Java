@@ -1,0 +1,50 @@
+package com.javarush.task.task39.task3901;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.HashSet;
+import java.util.Set;
+
+/* 
+Уникальные подстроки
+*/
+
+public class Solution {
+    public static void main(String[] args) throws IOException {
+        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        System.out.println("Please enter your string: ");
+        String s = bufferedReader.readLine();
+
+        System.out.println("The longest unique substring length is: \n" + lengthOfLongestUniqueSubstring(s));
+    }
+
+    public static int lengthOfLongestUniqueSubstring(String s) {
+        if (s == null || s.isEmpty()) { return 0;}
+
+        Set<Character> setOfChar = new HashSet<>();
+        Set<String> setString = new HashSet<>();
+        int subStringMaxSize = 0;
+        StringBuilder unikalCharString = new StringBuilder();
+        for(Character c: s.toCharArray()){
+            if(unikalCharString.indexOf(c.toString())== -1){
+                unikalCharString.append(c.toString());
+                System.out.println("в if " + unikalCharString);
+                setString.add(unikalCharString.toString());
+            } else{
+                System.out.println("выводим С " + c);
+                setString.add(unikalCharString.toString());
+                unikalCharString = new StringBuilder();
+                unikalCharString.append(c);
+            }
+        }
+
+        for(String stringA: setString){
+            if(stringA.length() > subStringMaxSize){
+                subStringMaxSize = stringA.length();
+            }
+        }
+
+        return subStringMaxSize;
+    }
+}
