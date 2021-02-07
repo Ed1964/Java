@@ -1,0 +1,22 @@
+package com.javarush.task.task39.task3910;
+
+/* 
+isPowerOfThree
+*/
+
+public class Solution {
+    public static void main(String[] args) {
+        System.out.println(isPowerOfThree(28));
+    }
+
+    public static boolean isPowerOfThree(int n) {
+        System.out.println((int)(Math.log(n)/Math.log(3)));
+        System.out.println((Math.log(n)/Math.log(3)));
+        System.out.println((Math.log(n)/Math.log(3)%1));
+       // if ((int)(Math.log(n)/Math.log(3))== (Math.log(n)/Math.log(3))) {
+        if ((Math.log(n)/Math.log(3)%1 == 0)) {
+            return true;
+        }
+        return false;
+    }
+}
