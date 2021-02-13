@@ -1,0 +1,77 @@
+package com.javarush.task.task39.task3909;
+
+/* 
+Одно изменение
+*/
+
+import org.junit.Assert;
+
+public class Solution {
+    public static void main(String[] args) {
+        System.out.println(isOneEditAway("", ""));
+    }
+
+    public static boolean isOneEditAway(String first, String second) {
+
+        int differentValue = 0;
+
+        if (first.equals(second)) {
+            return true;
+        }
+        if (Math.abs(first.length() - second.length()) > 1) {
+            return false;
+        }
+        if (first.isEmpty() || second.isEmpty()) {return true;}
+
+        else {
+            String firstt = first;
+            String secondd = second;
+
+            for (int i = 0, m = 0; i < firstt.length() && m < secondd.length(); i++, m++) {
+                if (firstt.charAt(i) == secondd.charAt(m)) {
+
+                } else {
+                    
+
+                    if(firstt.length() == secondd.length()){
+
+                        firstt = firstt.substring(0, firstt.indexOf(firstt.charAt(i))) +
+                                secondd.charAt(m) +
+                                    firstt.substring(firstt.indexOf(firstt.charAt(i))+1);
+                        differentValue++;
+                        if (firstt.equals(secondd) && differentValue < 2) {
+                            return true;
+                        }
+                    }
+                    else if (firstt.length() > secondd.length()) {
+                        differentValue++;
+
+                        firstt = firstt.substring(0, firstt.indexOf(firstt.charAt(i+1))) +
+                                firstt.substring(firstt.indexOf(firstt.charAt(i))+1);
+
+                        differentValue++;
+
+                        if (firstt.equals(secondd)) {
+                            return true;
+                        } else return false;
+
+                    } else if (secondd.length() > firstt.length()) {
+                        differentValue++;
+               
+                        secondd = secondd.substring(0, secondd.indexOf(secondd.charAt(m))) +
+                                secondd.substring(secondd.indexOf(secondd.charAt(m))+1);
+
+                        differentValue++;
+                        if (firstt.equals(secondd)) {
+                            return true;
+                        } else return false;
+
+                    }
+
+                }
+            }
+        }
+
+        return differentValue < 2;
+
+}}
