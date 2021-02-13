@@ -1,0 +1,36 @@
+package com.javarush.task.task39.task3908;
+
+/* 
+Возможен ли палиндром?
+*/
+
+import org.junit.Assert;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Solution {
+    public static void main(String[] args) {
+    }
+
+    public static boolean isPalindromePermutation(String s) {
+
+        String newS = s.toLowerCase();
+        int[] arr = new int[256];
+        for(char ch: newS.toCharArray()){
+                int ascii = (int) ch;
+                arr[ascii]++;
+        }
+        int neChetn = 0;
+        for(int k = 0; k < arr.length; k++){
+            if(arr[k]>0) {
+                if (arr[k] % 2 != 0)
+                    neChetn++;
+            }
+        }
+        if (neChetn == 0 || neChetn == 1){
+            return true;
+        }
+        return false;
+    }
+}
