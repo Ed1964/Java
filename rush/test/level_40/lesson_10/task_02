@@ -1,0 +1,94 @@
+package com.javarush.task.task40.task4008;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoField;
+import java.util.Calendar;
+
+/* 
+Работа с Java 8 DateTime API
+*/
+
+public class Solution {
+    public static void main(String[] args) throws ParseException {
+        printDate("9.10.2017 5:56:45");
+        System.out.println();
+        printDate("21.4.2014");
+        System.out.println();
+        printDate("17:33:40");
+    }
+
+    public static void printDate(String date) throws ParseException {
+        //напишите тут ваш код
+
+        LocalDate localDate;
+        LocalTime localTime;
+
+
+        DateTimeFormatter dateTimeFormatter1;
+        DateTimeFormatter dateTimeFormatter2;
+
+
+
+        if (date.contains(".") && date.contains(":")){
+            dateTimeFormatter1 = DateTimeFormatter.ofPattern("d.M.yyyy");
+            dateTimeFormatter2 = DateTimeFormatter.ofPattern("H:m:s");
+
+            String[] arr = date.split(" ");
+            String date1 = arr[0];
+            String time1 = arr[1];
+            localDate = LocalDate.parse(date1, dateTimeFormatter1);
+            localTime = LocalTime.parse(time1, dateTimeFormatter2);
+
+            System.out.println("День: " + localDate.getDayOfMonth());
+            System.out.println("День недели: " + localDate.get(ChronoField.DAY_OF_WEEK));
+            System.out.println("День месяца: " + localDate.get(ChronoField.DAY_OF_MONTH));
+            System.out.println("День года: " + localDate.get(ChronoField.DAY_OF_YEAR));
+            System.out.println("Неделя месяца: " + localDate.get(ChronoField.ALIGNED_WEEK_OF_MONTH));
+            System.out.println("Неделя года: " + localDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR));
+            System.out.println("Месяц: " + localDate.get(ChronoField.MONTH_OF_YEAR));
+            System.out.println("Год: " + localDate.get(ChronoField.YEAR));
+
+            String amPM = localTime.get(ChronoField.HOUR_OF_DAY) < 12 ? "AM" : "PM";
+            System.out.println("AM или PM: " + amPM);
+            System.out.println("Часы: " + localTime.get(ChronoField.CLOCK_HOUR_OF_AMPM));
+            System.out.println("Часы дня: " + localTime.get(ChronoField.HOUR_OF_DAY));
+            System.out.println("Минуты: " + localTime.get(ChronoField.MINUTE_OF_HOUR));
+            System.out.println("Секунды: " + localTime.get(ChronoField.SECOND_OF_MINUTE));
+
+
+        }
+
+        else if (date.contains(".")){
+            dateTimeFormatter1 = DateTimeFormatter.ofPattern("d.M.yyyy");
+            localDate = LocalDate.parse(date, dateTimeFormatter1);
+
+            System.out.println("День: " + localDate.getDayOfMonth());
+            System.out.println("День недели: " + localDate.get(ChronoField.DAY_OF_WEEK));
+            System.out.println("День месяца: " + localDate.get(ChronoField.DAY_OF_MONTH));
+            System.out.println("День года: " + localDate.get(ChronoField.DAY_OF_YEAR));
+            System.out.println("Неделя месяца: " + localDate.get(ChronoField.ALIGNED_WEEK_OF_MONTH));
+            System.out.println("Неделя года: " + localDate.get(ChronoField.ALIGNED_WEEK_OF_YEAR));
+            System.out.println("Месяц: " + localDate.get(ChronoField.MONTH_OF_YEAR));
+            System.out.println("Год: " + localDate.get(ChronoField.YEAR));
+
+
+        }
+        else if (date.contains(":")) {
+
+            dateTimeFormatter2 = DateTimeFormatter.ofPattern("H:m:s");
+            localTime = LocalTime.parse(date, dateTimeFormatter2);
+
+            String amPM = localTime.get(ChronoField.HOUR_OF_DAY) < 12 ? "AM" : "PM";
+            System.out.println("AM или PM: " + amPM);
+            System.out.println("Часы: " + localTime.get(ChronoField.CLOCK_HOUR_OF_AMPM));
+            System.out.println("Часы дня: " + localTime.get(ChronoField.HOUR_OF_DAY));
+            System.out.println("Минуты: " + localTime.get(ChronoField.MINUTE_OF_HOUR));
+            System.out.println("Секунды: " + localTime.get(ChronoField.SECOND_OF_MINUTE));
+        }
+    }
+}
